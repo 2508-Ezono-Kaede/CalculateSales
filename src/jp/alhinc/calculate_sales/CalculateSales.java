@@ -37,6 +37,23 @@ public class CalculateSales {
 		}
 
 		// ※ここから集計処理を作成してください。(処理内容2-1、2-2)
+		//listFilesを使⽤してfilesという配列に、
+		//指定したパスに存在する全てのファイル(または、ディレクトリ)の情報を格納します。
+		File[] files = new File("00000001.rcd").listFiles();
+
+		//filesの数だけ繰り返すことで、
+		//指定したパスに存在する全てのファイル(または、ディレクトリ)の数だけ繰り返されます。
+		for(int i = 0; i < files.length ; i++) {
+			//files[i].getName() でファイル名が取得できます。
+		}
+
+		//matches を使⽤してファイル名が「数字8桁.rcd」なのか判定します。
+		if(あたし、ここからやりなさい.matches(あたし、正規表現構⽂)) {
+		    //trueの場合の処理
+			 //売上ファイルの条件に当てはまったものだけ、List(ArrayList) に追加します。
+			rcdFiles.add(files[i]);
+		}
+
 
 
 
@@ -68,8 +85,19 @@ public class CalculateSales {
 			// 一行ずつ読み込む
 			while((line = br.readLine()) != null) {
 				// ※ここの読み込み処理を変更してください。(処理内容1-2)
-				System.out.println(line);
+				//split を使って「,」(カンマ)で分割すると、
+			    //items[0] には⽀店コード、items[1] には⽀店名が格納されます。
+			    String[] items = line.split(",");
+
+
+			    branchNames.put("[0]", "[1]");
+//			    branchSales.put([0], 0円);
+			    System.out.println(line);
+			    //↓後で削除
+			    System.out.println();
+
 			}
+
 
 		} catch(IOException e) {
 			System.out.println(UNKNOWN_ERROR);
