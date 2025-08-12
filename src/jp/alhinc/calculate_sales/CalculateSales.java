@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CalculateSales {
@@ -36,24 +38,25 @@ public class CalculateSales {
 			return;
 		}
 
-		// ※ここから集計処理を作成してください。(処理内容2-1、2-2)
-		//listFilesを使⽤してfilesという配列に、
-		//指定したパスに存在する全てのファイル(または、ディレクトリ)の情報を格納します。
-		File[] files = new File("00000001.rcd").listFiles();
 
-		//filesの数だけ繰り返すことで、
-		//指定したパスに存在する全てのファイル(または、ディレクトリ)の数だけ繰り返されます。
+
+		// ※ここから集計処理を作成してください。(処理内容2-1、2-2)
+		File[] files = new File("C:\\Users\\trainee1195\\Documents\\売上集計課題").listFiles();
+
+		//List宣言から行う
+		List<File> rcdFiles = new ArrayList<>();
+
 		for(int i = 0; i < files.length ; i++) {
 			//files[i].getName() でファイル名が取得できます。
-		}
 
-		//matches を使⽤してファイル名が「数字8桁.rcd」なのか判定します。
-		if(あたし、ここからやりなさい.matches(あたし、正規表現構⽂)) {
-		    //trueの場合の処理
-			 //売上ファイルの条件に当てはまったものだけ、List(ArrayList) に追加します。
-			rcdFiles.add(files[i]);
-		}
+			String fileName=files[i].getName();
 
+			if(fileName.matches("^[0-9]{8}\\.rcd$")) {
+				//0から1の数字八桁とrcdで終わる
+				rcdFiles.add(files[i]);
+			}
+
+		}
 
 
 
@@ -90,11 +93,9 @@ public class CalculateSales {
 			    String[] items = line.split(",");
 
 
-			    branchNames.put("[0]", "[1]");
-//			    branchSales.put([0], 0円);
+			    branchNames.put(items[0], items[1]);
+	            branchSales.put(items[0], 0L);
 			    System.out.println(line);
-			    //↓後で削除
-			    System.out.println();
 
 			}
 
