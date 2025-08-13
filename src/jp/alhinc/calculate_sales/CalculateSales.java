@@ -41,6 +41,8 @@ public class CalculateSales {
 
 
 		// ※ここから集計処理を作成してください。(処理内容2-1、2-2)
+		// ファイルのパスの中にある情報を取得するためにlistFilesという方法を使ってFile[] filesの中に入れてる
+		//型（ハコの形）変数（ハコの名前）＝（入れる行為）何を？、（なんの方法で？）
 		File[] files = new File("C:\\Users\\trainee1195\\Documents\\売上集計課題").listFiles();
 
 		//List宣言から行う
@@ -49,18 +51,50 @@ public class CalculateSales {
 		for(int i = 0; i < files.length ; i++) {
 			//files[i].getName() でファイル名が取得できます。
 
-			String fileName=files[i].getName();
+			//[i]に１を入れれば１になるし2を入れれば２になる なんにでもなれるってこと？
+			// String型(ハコ形）のfileName（ハコ名前）をiの順番でGETする（入手）
+			String fileName = files[i].getName();
 
+			//もしその箱の名前（fileName)
 			if(fileName.matches("^[0-9]{8}\\.rcd$")) {
 				//0から1の数字八桁とrcdで終わる
+
 				rcdFiles.add(files[i]);
-
-				for(int i = 0; i < rcdFiles.size(); i++) {
-
+				//条件に当てはまったものだけリスト化↑
 			}
 
-
 		}
+		//FOR文は繰り返す　＋１２３　ー３２１
+		//FOR文内に同じ変数は無理（int i)
+		//プログラミングにいまからrcdリストを読み込ませる
+	//	intiに0をいれた、rcdFilesの大きさよりもiが小さい　小さい分繰り返す
+		for(int i = 0; i < rcdFiles.size(); i++) {
+
+			//売上ファイルの1行目には支店コード、2行目には売上金額が入っています。
+
+			try {
+				//rcdfiles.get(i)←これで売上ファイルのi番目をとれる
+				File file = new File("C:\\Users\\trainee1195\\Documents\\売上集計課題", rcdFiles.get(i).getName());
+
+				//こちらのファイル、一行ずつ読み込ませます
+				//読み込ませるための処理↓
+
+				FileReader fr = new FileReader(file); //
+				BufferedReader br = new BufferedReader(fr);
+				//上でハコの用意をした
+				String line;
+				while((line =br.readLine()) != null) {
+				    String[] items = line.split(",");
+				}
+
+			//売上ファイルから読み込んだ売上金額をMapに加算したいから型の変換をする
+
+			long fileSale = Long.parseLong();
+
+			}
+		}
+
+
 
 
 
@@ -84,6 +118,7 @@ public class CalculateSales {
 		BufferedReader br = null;
 
 		try {
+
 			File file = new File(path, fileName);
 			FileReader fr = new FileReader(file);
 			br = new BufferedReader(fr);
