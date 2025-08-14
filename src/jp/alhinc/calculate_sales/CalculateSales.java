@@ -71,7 +71,7 @@ public class CalculateSales {
 		for(int i = 0; i < rcdFiles.size(); i++) {
 
 			//売上ファイルの1行目には支店コード、2行目には売上金額が入っています。
-
+			BufferedReader br = null;
 			try {
 				//rcdfiles.get(i)←これで売上ファイルのi番目をとれる
 				File file = new File("C:\\Users\\trainee1195\\Documents\\売上集計課題", rcdFiles.get(i).getName());
@@ -80,18 +80,54 @@ public class CalculateSales {
 				//読み込ませるための処理↓
 
 				FileReader fr = new FileReader(file); //
-				BufferedReader br = new BufferedReader(fr);
+				br = new BufferedReader(fr);
 				//上でハコの用意をした
+				//リードラインメゾットでテキストを一行ずつ読み込ませる
+				//while＝指定された条件が真である限り、コードブロックを繰り返し実行するための制御構文
+
+				// 1.リストを作る
+				  List<String> fileContents = new ArrayList<String>();
+
 				String line;
-				while((line =br.readLine()) != null) {
-				    String[] items = line.split(",");
+				while((line = br.readLine()) != null) {
+
+				    //作ったリストにコードと金額をいれる
+					//lineファイルを入れることで、中にある数字たちがリスト化されます
+					fileContents.add(line);
+			     }
+				    //
+				//今リスト作ってrcdファイルの中身を追加したところ
+
+				//売上ファイルから読み込んだ売上金額をMapに加算したいから型の変換をする
+					//読み込んだ情報は一律Strong扱い
+					//だけど、売上金額はLong扱いしたいからMapに追加するための型変換をする
+
+				//金額を0に設定したからi＝0
+
+ 			long fileSale = Long.parseLong(fileContents.get(1));
+ 			//型変換させた
+
+ 			//
+			Long saleAmount = branchSales.get(0) + fileSale;
+
+
+
+			} catch(IOException e) {
+				System.out.println(UNKNOWN_ERROR);
+				return;
+			} finally {
+				// ファイルを開いている場合
+				if(br != null) {
+					try {
+						// ファイルを閉じる
+						br.close();
+					} catch(IOException e) {
+						System.out.println(UNKNOWN_ERROR);
+						return;
+					}
 				}
-
-			//売上ファイルから読み込んだ売上金額をMapに加算したいから型の変換をする
-
-			long fileSale = Long.parseLong();
-
 			}
+
 		}
 
 
