@@ -4,10 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class CalculateSales {
 
@@ -205,6 +208,58 @@ public class CalculateSales {
 	private static boolean writeFile(String path, String fileName, Map<String, String> branchNames, Map<String, Long> branchSales) {
 		// ※ここに書き込み処理を作成してください。(処理内容3-1)
 
+		try {
+			//例外が発生する可能性のある処理 支店別集計ファイル
+			File file = new File("C:\\Users\\trainee1195\\Documents\\売上集計課題", fileName);
+
+			//try文でハコ作れたから次はファイルに文字を書き込む
+
+			FileWriter fw = new FileWriter(file);
+			BufferedWriter bw = new BufferedWriter(fw);
+
+			//For文を使ってMAPからkey一覧を取得、keyの数だけ繰り返す
+			//コードはこれ、名前はコレ、金はコレ getして書き込みたい
+
+				for (String key : branchNames.keySet()) {
+
+
+
+				}
+
+
+				//改行する
+				bw.newLine();
+
+
+			fw.close();
+		}catch(IOException e) {
+			System.out.println(e);
+
+				//keyという変数には、Mapから取得したキーが代入されています。
+				//拡張for⽂で繰り返されているので、1つ⽬のキーが取得できたら、
+				//2つ⽬の取得...といったように、次々とkeyという変数に上書きされていきます。
+
+
+		} catch(NumberFormatException e) {
+			//例外が発生した場合の処理
+			System.out.println("UNKNOWN_ERROR");
+			System.out.println(e);
+
+		} finally {
+	    	 //必ず実行される処理 を、書く↓
+					// ファイルを開いている場合
+					if( bw != null) {
+						try { bw.close();
+							// ファイルを閉じる
+//
+
+						} catch(IOException e) {
+							System.out.println(UNKNOWN_ERROR);
+							return false;
+
+
+
+		}
 		return true;
 	}
 
