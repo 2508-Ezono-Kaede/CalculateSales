@@ -1,11 +1,11 @@
 package jp.alhinc.calculate_sales;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.FileWriter;
-import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -207,28 +207,34 @@ public class CalculateSales {
 	 */
 	private static boolean writeFile(String path, String fileName, Map<String, String> branchNames, Map<String, Long> branchSales) {
 		// ※ここに書き込み処理を作成してください。(処理内容3-1)
+		BufferedWriter bw = null;
 
 		try {
 			//例外が発生する可能性のある処理 支店別集計ファイル
 			File file = new File("C:\\Users\\trainee1195\\Documents\\売上集計課題", fileName);
 
 			//try文でハコ作れたから次はファイルに文字を書き込む
-
+			//プログラムから文字列を受け取ってFileWriterオブジェクトに文字列を渡すBufferedWriterオブジェクトを生成
 			FileWriter fw = new FileWriter(file);
-			BufferedWriter bw = new BufferedWriter(fw);
+			bw = new BufferedWriter(fw);
 
 			//For文を使ってMAPからkey一覧を取得、keyの数だけ繰り返す
 			//コードはこれ、名前はコレ、金はコレ getして書き込みたい
 
 				for (String key : branchNames.keySet()) {
+					//mapの中のkeyに紐づいてるバリュー（売上金額）を取ってきている
+					branchSales.get(key);
+					//mapの中のkeyに紐づいてるバリュー（支店名）を取ってきている
+					branchNames.get(key);
 
+					//取ってきた金額と、名、支店コードをこの順番で書き込むように命令がしたい
+					//文字列を出力,その次に順番を指定して書き込みたい
+					bw.write(key+","+branchNames.get(key)+","+branchSales.get(key));
 
+					//改行する
+					bw.newLine();
 
 				}
-
-
-				//改行する
-				bw.newLine();
 
 
 			fw.close();
@@ -248,19 +254,17 @@ public class CalculateSales {
 		} finally {
 	    	 //必ず実行される処理 を、書く↓
 					// ファイルを開いている場合
-					if( bw != null) {
-						try { bw.close();
+			if( bw != null) {
+				try { bw.close();
 							// ファイルを閉じる
 //
+				} catch(IOException e) {
+					System.out.println(UNKNOWN_ERROR);
+					return false;
 
-						} catch(IOException e) {
-							System.out.println(UNKNOWN_ERROR);
-							return false;
-
-
-
+				}
+			}
 		}
 		return true;
 	}
-
 }
