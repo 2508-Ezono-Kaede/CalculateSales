@@ -44,6 +44,7 @@ public class CalculateSales {
 
 
 		// ※ここから集計処理を作成してください。(処理内容2-1、2-2)
+
 		// ファイルのパスの中にある情報を取得するためにlistFilesという方法を使ってFile[] filesの中に入れてる
 		//型（ハコの形）変数（ハコの名前）＝（入れる行為）何を？、（なんの方法で？）
 		File[] files = new File("C:\\Users\\trainee1195\\Documents\\売上集計課題").listFiles();
@@ -84,6 +85,7 @@ public class CalculateSales {
 
 				FileReader fr = new FileReader(file); //
 				br = new BufferedReader(fr);
+
 				//上でハコの用意をした
 				//リードラインメゾットでテキストを一行ずつ読み込ませる
 				//while＝指定された条件が真である限り、コードブロックを繰り返し実行するための制御構文
@@ -109,12 +111,13 @@ public class CalculateSales {
 
  			long fileSale = Long.parseLong(fileContents.get(1));
  			//型変換させた
+ 			//ファイルコンテンツ（支店コード）をブランチコードに入れたよ
+ 			String branchCode = fileContents.get(0);
 
- 			//
-			Long saleAmount = branchSales.get(0) + fileSale;
+			Long saleAmount = branchSales.get(branchCode) + fileSale;
 
-
-
+			branchSales.put(branchCode, saleAmount);
+//エラーの原因コレか？？
 			} catch(IOException e) {
 				System.out.println(UNKNOWN_ERROR);
 				return;
@@ -124,6 +127,7 @@ public class CalculateSales {
 					try {
 						// ファイルを閉じる
 						br.close();
+//ここもデバック入る
 					} catch(IOException e) {
 						System.out.println(UNKNOWN_ERROR);
 						return;
@@ -221,7 +225,7 @@ public class CalculateSales {
 			//For文を使ってMAPからkey一覧を取得、keyの数だけ繰り返す
 			//コードはこれ、名前はコレ、金はコレ getして書き込みたい
 
-				for (String key : branchNames.keySet()) {
+				for (String key : branchSales.keySet()) {
 					//mapの中のkeyに紐づいてるバリュー（売上金額）を取ってきている
 					branchSales.get(key);
 					//mapの中のkeyに紐づいてるバリュー（支店名）を取ってきている
@@ -233,11 +237,8 @@ public class CalculateSales {
 
 					//改行する
 					bw.newLine();
+					}
 
-				}
-
-
-			fw.close();
 		}catch(IOException e) {
 			System.out.println(e);
 
