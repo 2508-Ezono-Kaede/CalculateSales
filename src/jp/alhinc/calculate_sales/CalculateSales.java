@@ -74,14 +74,14 @@ public class CalculateSales {
 
 				File file = new File(args[0], rcdFiles.get(i).getName());
 
-				FileReader fr = new FileReader(file); //
+				FileReader fr = new FileReader(file);
 				br = new BufferedReader(fr);
 
 				//リードラインメゾットでテキストを一行ずつ読み込ませる
 				//while＝指定された条件が真である限り、コードブロックを繰り返し実行するための制御構文
 
 				// 1.リストを作る
-				  List<String> fileContents = new ArrayList<String>();
+				List<String> fileContents = new ArrayList<String>();
 
 				String line;
 				while((line = br.readLine()) != null) {
@@ -91,13 +91,13 @@ public class CalculateSales {
 			     }
 
 				//売上ファイルから読み込んだ売上金額をMapに加算するため、型の変換をする
-			long fileSale = Long.parseLong(fileContents.get(1));
- 			//ファイルコンテンツ（支店コード）をブランチコードに入れた
- 			String branchCode = fileContents.get(0);
+				long fileSale = Long.parseLong(fileContents.get(1));
+				//ファイルコンテンツ（支店コード）をブランチコードに入れた
+				String branchCode = fileContents.get(0);
 
-			Long saleAmount = branchSales.get(branchCode) + fileSale;
+				Long saleAmount = branchSales.get(branchCode) + fileSale;
 
-			branchSales.put(branchCode, saleAmount);
+				branchSales.put(branchCode, saleAmount);
 
 			} catch(IOException e) {
 				System.out.println(UNKNOWN_ERROR);
@@ -116,10 +116,6 @@ public class CalculateSales {
 			}
 
 		}
-
-
-
-
 
 		// 支店別集計ファイル書き込み処理
 		if(!writeFile(args[0], FILE_NAME_BRANCH_OUT, branchNames, branchSales)) {
@@ -149,11 +145,10 @@ public class CalculateSales {
 			String line;
 			// 一行ずつ読み込む
 			while((line = br.readLine()) != null) {
-				// ※ここの読み込み処理を変更してください。(処理内容1-2)
+				// (処理内容1-2)
 
 			    //items[0] には⽀店コード、items[1] には⽀店名が格納されます。
 			    String[] items = line.split(",");
-
 
 			    branchNames.put(items[0], items[1]);
 	            branchSales.put(items[0], 0L);
@@ -168,8 +163,7 @@ public class CalculateSales {
 			// ファイルを開いている場合
 			if(br != null) {
 				try {
-					// ファイルを閉じる
-					br.close();
+					br.close();// ファイルを閉じる
 				} catch(IOException e) {
 					System.out.println(UNKNOWN_ERROR);
 					return false;
@@ -189,7 +183,7 @@ public class CalculateSales {
 	 * @return 書き込み可否
 	 */
 	private static boolean writeFile(String path, String fileName, Map<String, String> branchNames, Map<String, Long> branchSales) {
-		// ※ここに書き込み処理を作成してください。(処理内容3-1)
+		// (処理内容3-1)
 		BufferedWriter bw = null;
 
 		try {
@@ -200,14 +194,14 @@ public class CalculateSales {
 			FileWriter fw = new FileWriter(file);
 			bw = new BufferedWriter(fw);
 
-			//For文を使ってMAPからkey一覧を取得、keyの数だけ繰り返す。
+			//For文を使ってMAPからkey一覧を取得、keyの数だけ繰り返す
 			for (String key : branchSales.keySet()) {
 
 				branchSales.get(key);//mapの中のkeyに紐づいてるバリュー（売上金額）を取ってきている
 				branchNames.get(key);//mapの中のkeyに紐づいてるバリュー（支店名）を取ってきている
 
-				//順番を指定して書き込む。
-				bw.write(key  +"," + branchNames.get(key) + "," + branchSales.get(key));
+				//順番を指定して書き込む
+				bw.write(key  + "," + branchNames.get(key) + "," + branchSales.get(key));
 
 				bw.newLine();//改行する
 					}
@@ -217,12 +211,12 @@ public class CalculateSales {
 			return false;
 
 		} finally {
-	    	 //必ず実行される処理 を、書く↓
+	    	 //必ず実行される処理を書く
 					// ファイルを開いている場合
 			if( bw != null) {
 				try { bw.close();
 							// ファイルを閉じる
-//
+
 				} catch(IOException e) {
 					System.out.println(UNKNOWN_ERROR);
 					return false;
