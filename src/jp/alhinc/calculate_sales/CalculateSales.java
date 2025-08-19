@@ -204,16 +204,16 @@ public class CalculateSales {
 				bw.write(key  + "," + branchNames.get(key) + "," + branchSales.get(key));
 
 				bw.newLine();//改行する
-					}
+			}
 
-		}catch(IOException e) {
+		} catch(IOException e) {
 			System.out.println(e);
 			return false;
 
 		} finally {
 	    	 //必ず実行される処理を書く
 					// ファイルを開いている場合
-			if( bw != null) {
+			if(bw != null) {
 				try { bw.close();
 							// ファイルを閉じる
 
