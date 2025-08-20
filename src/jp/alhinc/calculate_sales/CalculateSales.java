@@ -72,6 +72,10 @@ public class CalculateSales {
 			if(fileName.matches("^[0-9]{8}\\.rcd$")) {
 								//0から1の数字八桁と.rcdで終わる
 
+				if( .isFile() && fileName.matches("^[0-9]{8}\\.rcd$")) {
+				    //対象がファイルであり、「数字8桁.rcd」なのか判定します。
+				}
+
 				rcdFiles.add(files[i]);
 				//条件に当てはまったものだけリスト化
 			}
@@ -95,10 +99,6 @@ public class CalculateSales {
 		}
 
 		for(int i = 0; i < rcdFiles.size(); i++) {
-
-			if(ファイルの情報.isFile() && fileName.matches("^[0-9]{8}\\.rcd$")) {
-			    //対象がファイルであり、「数字8桁.rcd」なのか判定します。
-			}
 
 			//売上ファイルの1行目には支店コード、2行目には売上金額が入っています。
 			BufferedReader br = null;
