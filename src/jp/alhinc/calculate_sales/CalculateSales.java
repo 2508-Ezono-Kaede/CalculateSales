@@ -56,15 +56,15 @@ public class CalculateSales {
 		// ※ここから集計処理を作成してください。(処理内容2-1、2-2)
 
 		// ファイルのパスの中にある情報を取得するためにlistFilesという方法を使ってFile[] filesの中に入れている。
-		//型（形）変数（名前）＝（入れる行為）.(方法）
 		File[] files = new File(args[0]).listFiles();
+		//型（形）変数（名前）＝（入れる行為）.方法
 
 		//List宣言から行う
 		List<File> rcdFiles = new ArrayList<>();
 
 		for(int i = 0; i < files.length ; i++) {
 			if(files[i].isFile() && files[i].getName().matches("^[0-9]{8}\\.rcd$")) {
-			    //対象がファイルであり、「数字8桁.rcd」なのか判定します。
+			    //対象がファイルであり、「数字8桁.rcd」なのか判定
 
 				rcdFiles.add(files[i]);
 				//条件に当てはまったものだけリスト化
@@ -126,6 +126,7 @@ public class CalculateSales {
 					}
 			     }
 
+					//売上金額					//正規表現式（数字）
 				if(!fileContents.get(1).matches("^[0-9]*$")) {
 				    //売上⾦額が数字ではなかった場合は、
 				    //エラーメッセージをコンソールに表⽰します。
@@ -143,8 +144,7 @@ public class CalculateSales {
 				if(rcdFiles.size() != 2) {
 					//売上ファイルの中⾝を⼊れたリスト
 
-				    //売上ファイルの⾏数が2⾏ではなかった場合は、
-				    //エラーメッセージをコンソールに表⽰します。
+				    //売上ファイルの⾏数が2⾏ではなかった場合は、エラーメッセージをコンソールに表⽰します。
 					System.out.println(FAIL_INVALID_FORMAT);
 					return;
 				}
@@ -152,11 +152,13 @@ public class CalculateSales {
 				//saleAmount(売上金額)の中に、バリュー（0L）＋売上ファイルから読み込んだ売上金（fileSale）を入れる
 				Long saleAmount = branchSales.get(branchCode) + fileSale;
 								//売上金額を入れたMap.get(支店コード)
+
 				if(saleAmount >= 10000000000L){
 					//売上⾦額が11桁以上の場合、エラーメッセージをコンソールに表⽰します。
 					System.out.println(TOTAL_AMOUNT_EXEEDED);
 					return;
 				}
+
 				//ブランチセールスの中に、支店コードと、売上金額が入っているsaleAmountが入っている
 				branchSales.put(branchCode, saleAmount);
 
