@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,13 +83,14 @@ public class CalculateSales {
 			int latter = Integer.parseInt(rcdFiles.get(i=1).getName().substring(0, 8));
 											//次のファイル名
 
+			Collections.sort(rcdFiles);
+
 		      //⽐較する2つのファイル名の先頭から数字の8⽂字を切り出し、int型に変換
 			if((latter - former) != 1) {
 				//2つのファイル名の数字を⽐較して、差が1ではなかったら、
 				//エラーメッセージをコンソールに表⽰
 				System.out.println(NOT_CONSECUTIVE_NUMBER);
 				return;
-
 			}
 		}
 
