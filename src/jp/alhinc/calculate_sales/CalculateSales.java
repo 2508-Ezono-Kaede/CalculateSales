@@ -116,7 +116,7 @@ public class CalculateSales {
 					fileContents.add(line);
 
 					//エラー処理 ⽀店に該当がなかった場合
-					if (!branchSales.containsKey(file)) {
+					if (!branchSales.containsKey(line)) {
 						//⽀店コードを⼊れたMap	(支店コード)
 
 					    //⽀店情報を保持しているMapに売上ファイルの⽀店コードが存在しなかった場合は、
