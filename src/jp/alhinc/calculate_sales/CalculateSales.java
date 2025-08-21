@@ -75,15 +75,16 @@ public class CalculateSales {
 
 		//ファイルが連番になっていなかった場合のエラー処理
 		 //繰り返し回数は売上ファイルのリストの数よりも1つ⼩さい数
+
+		Collections.sort(rcdFiles);
+
 		for(int i = 0; i < rcdFiles.size() -1; i++) {
 							//売上ファイルのリスト
 
 			int former = Integer.parseInt(rcdFiles.get(i).getName().substring(0, 8));
 											//ファイル名
-			int latter = Integer.parseInt(rcdFiles.get(i=1).getName().substring(0, 8));
+			int latter = Integer.parseInt(rcdFiles.get(i+1).getName().substring(0, 8));
 											//次のファイル名
-
-			Collections.sort(rcdFiles);
 
 		      //⽐較する2つのファイル名の先頭から数字の8⽂字を切り出し、int型に変換
 			if((latter - former) != 1) {
@@ -116,17 +117,26 @@ public class CalculateSales {
 
 				    //作ったリストに支店コードと金額をいれる
 					fileContents.add(line);
-
-					//エラー処理 ⽀店に該当がなかった場合
-					if (!branchSales.containsKey(line)) {
-						//⽀店コードを⼊れたMap	(支店コード)
-
-					    //⽀店情報を保持しているMapに売上ファイルの⽀店コードが存在しなかった場合は、
-					    //エラーメッセージをコンソールに表⽰します。
-						System.out.println(CODEL_IS_INVALID);
-						return;
-					}
 			     }
+
+				//エラー処理 ⽀店に該当がなかった場合
+				if (!branchNames.containsKey(fileContents.get(0))) {
+					//⽀店コードを⼊れたMap	(支店コード)
+
+				    //⽀店情報を保持しているMapに売上ファイルの⽀店コードが存在しなかった場合は、
+				    //エラーメッセージをコンソールに表⽰します。
+					System.out.println(CODEL_IS_INVALID);
+					return;
+				}
+
+				//エラー処理 売上ファイルの中⾝が3⾏以上ある場合
+				if(fileContents.size() != 2) {
+					//売上ファイルの中⾝を⼊れたリスト
+
+				    //売上ファイルの⾏数が2⾏ではなかった場合は、エラーメッセージをコンソールに表⽰します。
+					System.out.println(FAIL_INVALID_FORMAT);
+					return;
+				}
 
 					//売上金額					//正規表現式（数字）
 				if(!fileContents.get(1).matches("^[0-9]*$")) {
@@ -134,6 +144,8 @@ public class CalculateSales {
 				    //エラーメッセージをコンソールに表⽰します。
 					System.out.println(UNKNOWN_ERROR);
 					return;
+
+				//エラー処理 売上ファイルの支店コードの確認→ファイルの中身が二桁か確認→金額が数字か確認
 				}
 
 				//売上ファイルから読み込んだ売上金額をMapに加算するため、型の変換をする
@@ -142,14 +154,7 @@ public class CalculateSales {
 				//ファイルコンテンツ（支店コード）をブランチコードに入れた
 				String branchCode = fileContents.get(0);
 
-				//エラー処理 売上ファイルの中⾝が3⾏以上ある場合
-				if(rcdFiles.size() != 2) {
-					//売上ファイルの中⾝を⼊れたリスト
 
-				    //売上ファイルの⾏数が2⾏ではなかった場合は、エラーメッセージをコンソールに表⽰します。
-					System.out.println(FAIL_INVALID_FORMAT);
-					return;
-				}
 
 				//saleAmount(売上金額)の中に、バリュー（0L）＋売上ファイルから読み込んだ売上金（fileSale）を入れる
 				Long saleAmount = branchSales.get(branchCode) + fileSale;
