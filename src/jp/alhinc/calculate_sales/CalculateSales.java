@@ -25,9 +25,9 @@ public class CalculateSales {
 	private static final String UNKNOWN_ERROR = "予期せぬエラーが発生しました";
 	private static final String FILE_NOT_EXIST = "支店定義ファイルが存在しません";
 	private static final String FILE_INVALID_FORMAT = "支店定義ファイルのフォーマットが不正です";
-	private static final String NOT_CONSECUTIVE_NUMBER= "rcdファイルが連番になっていません";
+	private static final String NOT_CONSECUTIVE_NUMBER= "売上ファイルが連番になっていません";
 	private static final String TOTAL_AMOUNT_EXEEDED= "合計⾦額が10桁を超えました";
-	private static final String CODEL_IS_INVALID= "⽀店定義ファイルの⽀店コードが不正です";
+	private static final String CODEL_IS_INVALID= "の⽀店コードが不正です";
 	private static final String FAIL_INVALID_FORMAT= "売上ファイルのフォーマットが不正です";
 
 
@@ -83,7 +83,7 @@ public class CalculateSales {
 
 			int former = Integer.parseInt(rcdFiles.get(i).getName().substring(0, 8));
 											//ファイル名
-			int latter = Integer.parseInt(rcdFiles.get(i+1).getName().substring(0, 8));
+			int latter = Integer.parseInt(rcdFiles.get(i + 1).getName().substring(0, 8));
 											//次のファイル名
 
 		      //⽐較する2つのファイル名の先頭から数字の8⽂字を切り出し、int型に変換
@@ -119,22 +119,22 @@ public class CalculateSales {
 					fileContents.add(line);
 			     }
 
-				//エラー処理 ⽀店に該当がなかった場合
-				if (!branchNames.containsKey(fileContents.get(0))) {
-					//⽀店コードを⼊れたMap	(支店コード)
-
-				    //⽀店情報を保持しているMapに売上ファイルの⽀店コードが存在しなかった場合は、
-				    //エラーメッセージをコンソールに表⽰します。
-					System.out.println(CODEL_IS_INVALID);
-					return;
-				}
-
 				//エラー処理 売上ファイルの中⾝が3⾏以上ある場合
 				if(fileContents.size() != 2) {
 					//売上ファイルの中⾝を⼊れたリスト
 
 				    //売上ファイルの⾏数が2⾏ではなかった場合は、エラーメッセージをコンソールに表⽰します。
 					System.out.println(FAIL_INVALID_FORMAT);
+					return;
+				}
+
+				//エラー処理 ⽀店に該当がなかった場合
+				if (!branchNames.containsKey(fileContents.get(0))) {
+					//⽀店コードを⼊れたMap	(支店コード)
+
+				    //⽀店情報を保持しているMapに売上ファイルの⽀店コードが存在しなかった場合は、
+				    //エラーメッセージをコンソールに表⽰します。
+					System.out.println(rcdFiles.get(i).getName() + CODEL_IS_INVALID);
 					return;
 				}
 
@@ -145,7 +145,7 @@ public class CalculateSales {
 					System.out.println(UNKNOWN_ERROR);
 					return;
 
-				//エラー処理 売上ファイルの支店コードの確認→ファイルの中身が二桁か確認→金額が数字か確認
+				//エラー処理 ファイルの中身が二桁か確認→売上ファイルの支店コードの確認→金額が数字か確認
 				}
 
 				//売上ファイルから読み込んだ売上金額をMapに加算するため、型の変換をする
