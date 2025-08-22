@@ -25,10 +25,10 @@ public class CalculateSales {
 	private static final String UNKNOWN_ERROR = "予期せぬエラーが発生しました";
 	private static final String FILE_NOT_EXIST = "支店定義ファイルが存在しません";
 	private static final String FILE_INVALID_FORMAT = "支店定義ファイルのフォーマットが不正です";
-	private static final String NOT_CONSECUTIVE_NUMBER= "売上ファイルが連番になっていません";
+	private static final String NOT_CONSECUTIVE_NUMBER= "売上ファイル名が連番になっていません";
 	private static final String TOTAL_AMOUNT_EXEEDED= "合計⾦額が10桁を超えました";
 	private static final String CODEL_IS_INVALID= "の⽀店コードが不正です";
-	private static final String FAIL_INVALID_FORMAT= "売上ファイルのフォーマットが不正です";
+	private static final String FAIL_INVALID_FORMAT= "のフォーマットが不正です";
 
 
 	/**
@@ -124,7 +124,7 @@ public class CalculateSales {
 					//売上ファイルの中⾝を⼊れたリスト
 
 				    //売上ファイルの⾏数が2⾏ではなかった場合は、エラーメッセージをコンソールに表⽰します。
-					System.out.println(FAIL_INVALID_FORMAT);
+					System.out.println(rcdFiles.get(i).getName() + FAIL_INVALID_FORMAT);
 					return;
 				}
 
